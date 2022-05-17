@@ -1,0 +1,24 @@
+{
+  "name": "executor",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DigiventuresFintech/executor.git"
+  },
+  "author": "Digiventures",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DigiventuresFintech/executor/issues"
+  },
+  "homepage": "https://github.com/DigiventuresFintech/executor#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "lodash": "^4.17.21",
+    "qs": "^6.10.3"
+  }
+}
