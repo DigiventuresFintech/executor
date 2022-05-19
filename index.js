@@ -13,7 +13,7 @@ class Executor {
     const matches = v.match(regex) || [];
     matches.map((match) => {
       const [, path] = match.match(/\{\{(.*?)\}\}/);
-      const value = get(collector, path);
+      const value = get(collector, path, "");
       v = v.replace(match, value);
     });
     return JSON.parse(v);
