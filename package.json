@@ -3,22 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@DigiventuresFintech"
-  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DigiventuresFintech/executor.git"
+    "url": "git+https://github.com/DigiventuresFintech/instructions-executor.git"
   },
   "author": "Digiventures",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/DigiventuresFintech/executor/issues"
+    "url": "https://github.com/DigiventuresFintech/instructions-executor/issues"
   },
-  "homepage": "https://github.com/DigiventuresFintech/executor#readme",
+  "homepage": "https://github.com/DigiventuresFintech/instructions-executor#readme",
   "dependencies": {
     "axios": "^0.27.2",
     "lodash": "^4.17.21",
