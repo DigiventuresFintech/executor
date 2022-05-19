@@ -6,6 +6,19 @@ class Executor {
     this.actions = { ...actions };
   }
 
+  replaceFromCollector(v, collector) {
+    if (!v) return;
+    v = JSON.stringify(v);
+    const regex = /\{\{(.*?)\}\}/g;
+    const matches = v.match(regex) || [];
+    matches.map((match) => {
+      const [, path] = match.match(/\{\{(.*?)\}\}/);
+      const value = get(collector, path);
+      v = v.replace(match, value);
+    });
+    return JSON.parse(v);
+  }
+
   async run(instructions = [], collector = {}) {
     try {
       if (!Array.isArray(instructions)) {
@@ -14,20 +27,7 @@ class Executor {
 
       const steps = [];
 
-      function replaceFromCollector(v) {
-        if (!v) return;
-        v = JSON.stringify(v);
-        const regex = /\{\{(.*?)\}\}/g;
-        const matches = v.match(regex) || [];
-        matches.map((match) => {
-          const [, path] = match.match(/\{\{(.*?)\}\}/);
-          const value = get(collector, path);
-          v = v.replace(match, value);
-        });
-        return JSON.parse(v);
-      }
-
-      async function run(instructions = []) {
+      const execute = async (instructions = []) => {
         const pendings = instructions.map(async (instruction) => {
           const { children } = instruction;
           let { data = false } = instruction;
@@ -37,7 +37,7 @@ class Executor {
           const output = {};
           let { action, step, settings } = data;
           steps.push(step);
-          settings = replaceFromCollector(settings);
+          settings = this.replaceFromCollector(settings, collector);
           const actionExecutionData = await (this.actions.methods[action]?.(
             step,
             settings
@@ -46,7 +46,7 @@ class Executor {
             collector[step] = actionExecutionData;
             output.box = actionExecutionData;
             if (children && children.length) {
-              const ranPending = run(children);
+              const ranPending = execute(children);
               const ranResolved = Array.isArray(ranPending)
                 ? await Promise.all(ranPending)
                 : await ranPending;
@@ -57,9 +57,9 @@ class Executor {
         });
         const resolved = await Promise.all(pendings);
         return resolved;
-      }
+      };
 
-      const pendings = run(instructions);
+      const pendings = execute(instructions);
       const resolved = Array.isArray(pendings)
         ? await Promise.all(pendings)
         : await pendings;
@@ -70,7 +70,7 @@ class Executor {
 
       return collector;
     } catch (e) {
-      console.log(e);
+      console.error(e);
       return false;
     }
   }
