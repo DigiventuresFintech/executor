@@ -1,7 +1,10 @@
 {
-  "name": "instructions-executor",
-  "version": "1.0.3",
-  "description": "",
+  "name": "@digiventures.stack/instructions-executor",
+  "version": "1.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "Flex, dynamic and configurable user registration flow",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,7 +14,7 @@
     "url": "git+https://github.com/DigiventuresFintech/instructions-executor.git"
   },
   "author": "Digiventures",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/DigiventuresFintech/instructions-executor/issues"
   },
